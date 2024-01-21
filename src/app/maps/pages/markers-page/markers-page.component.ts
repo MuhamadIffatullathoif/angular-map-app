@@ -1,6 +1,11 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import * as mapboxgl from "mapbox-gl";
 
+interface MarkerAndColor {
+  color: string;
+  marker: mapboxgl.Marker;
+}
+
 @Component({
   templateUrl: './markers-page.component.html',
   styleUrl: './markers-page.component.css'
@@ -9,6 +14,7 @@ export class MarkersPageComponent {
   @ViewChild('map')
   public divMap?: ElementRef;
   public map?: mapboxgl.Map;
+  public markers: MarkerAndColor[] = [];
   public currentLnglat: mapboxgl.LngLat = new mapboxgl.LngLat(-74.34618731024227, 40.09070068472067);
 
   ngAfterViewInit(): void {
@@ -40,5 +46,11 @@ export class MarkersPageComponent {
       draggable: true
     }).setLngLat(lngLat)
       .addTo(this.map);
+    this.markers.push({color, marker});
+  }
+
+  deleteMarker(index: number): void {
+    this.markers[index].marker.remove();
+    this.markers.splice(index, 1);
   }
 }
