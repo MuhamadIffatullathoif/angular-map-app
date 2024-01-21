@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+
+interface House {
+  title: string;
+  description: string;
+  lngLat: [number, number];
+}
 
 @Component({
   templateUrl: './properties-page.component.html',
@@ -6,4 +12,21 @@ import { Component } from '@angular/core';
 })
 export class PropertiesPageComponent {
 
+  public houses: House[] = [
+    {
+      title: 'Semarang',
+      description: 'Description Semarang',
+      lngLat: [-75, 45]
+    },
+    {
+      title: 'Surabaya',
+      description: 'Description Surabaya',
+      lngLat: [-75, 45]
+    },
+    {
+      title: 'Bandung',
+      description: 'Description Bandung',
+      lngLat: [-75, 45]
+    },
+  ];
 }
