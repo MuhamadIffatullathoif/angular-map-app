@@ -9,7 +9,7 @@ export class MarkersPageComponent {
   @ViewChild('map')
   public divMap?: ElementRef;
   public map?: mapboxgl.Map;
-  public currentLnglat: mapboxgl.LngLat = new mapboxgl.LngLat(-74.34618731024227, 40.09070068472067 );
+  public currentLnglat: mapboxgl.LngLat = new mapboxgl.LngLat(-74.34618731024227, 40.09070068472067);
 
   ngAfterViewInit(): void {
     if (!this.divMap) throw new Error("HTML Element not found");
@@ -23,6 +23,22 @@ export class MarkersPageComponent {
 
     const marker = new mapboxgl.Marker()
       .setLngLat(this.currentLnglat)
+      .addTo(this.map);
+  }
+
+  createMarker(): void {
+    if (!this.map) return;
+    const color = '#xxxxxx'.replace(/x/g, y => (Math.random() * 16 | 0).toString(16));
+    const lngLat = this.map!.getCenter();
+    this.addMarker(lngLat, color);
+  }
+
+  addMarker(lngLat: mapboxgl.LngLat, color: string): void {
+    if (!this.map) return;
+    const marker = new mapboxgl.Marker({
+      color: color,
+      draggable: true
+    }).setLngLat(lngLat)
       .addTo(this.map);
   }
 }
